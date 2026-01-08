@@ -1,0 +1,13 @@
+Get-Location
+& .\backend\venv\Scripts\python.exe --version
+& .\backend\venv\Scripts\python.exe -c "import sys; print('sys.executable=', sys.executable); print('cwd=', __import__('os').getcwd()); print('sys.path[:3]=', sys.path[:3])"
+Get-ChildItem -Path .\backend -File -Force | Select-Object Name,Length,LastWriteTime
+Test-Path .\backend\__init__.py; if (Test-Path .\backend\__init__.py) { Get-Content .\backend\__init__.py -TotalCount 20 } else { Write-Host "__init__.py not present" }
+& .\backend\venv\Scripts\python.exe -c "import importlib,traceback; 
+try:
+  importlib.import_module('backend.main'); 
+  print('IMPORT OK');
+except Exception:
+  traceback.print_exc()"
+& .\backend\venv\Scripts\python.exe -c "from importlib import import_module; m = import_module('backend.main'); print('module loaded:', m); print('exported names:', [n for n in dir(m) if not n.startswith('_')])"
+New-Item -Path .\backend\__init__.py -ItemType File -Force

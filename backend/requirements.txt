@@ -1,0 +1,7 @@
+﻿fastapi
+uvicorn[standard]
+requests
+qdrant-client
+sentence-transformers
+langchain
+python-dotenv
