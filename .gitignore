@@ -5,3 +5,12 @@
 __pycache__/
 svg_app_builder.egg-info/
 sanitize-debug.log
+*.ps1.bak*
+*.bak
+*.log
+*.txt
+.venv/
+__pycache__/
+*.pyc
+svg_app_builder.egg-info/
+tests/__pycache__/
