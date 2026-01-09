@@ -1,0 +1,7 @@
+﻿convert-and-commit.ps1.bak*
+*.bak
+.venv/
+*.pyc
+__pycache__/
+svg_app_builder.egg-info/
+sanitize-debug.log
