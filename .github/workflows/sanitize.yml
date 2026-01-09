@@ -1,0 +1,52 @@
+name: Sanitize
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      fix:
+        description: "If true, run fixes and commit them"
+        required: false
+        default: "false"
+      push:
+        description: "If true and fix=true, push the commit"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Run sanitizer (dry-run) to check formatting
+        shell: pwsh
+        run: |
+          .\run-sanitize-all.ps1 -DryRun -Verbose
+
+  fix:
+    if: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.fix == 'true') }}
+    runs-on: windows-latest
+    needs: check
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Run sanitizer (fix)
+        shell: pwsh
+        run: |
+          $fix = '${{ github.event.inputs.fix }}'
+          $push = '${{ github.event.inputs.push }}'
+          $pushBool = $false
+          if ($push -eq 'true') { $pushBool = $true }
+          .\run-sanitize-all.ps1 -Fix -Yes -AutoCommit -CommitMessage 'chore: auto-run sanitizer' -Push:$pushBool -Verbose

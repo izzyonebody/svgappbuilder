@@ -100,21 +100,13 @@ function Ensure-Backup {
         }
         # preserve relative path under backup folder
         $full = [System.IO.Path]::GetFullPath($FilePath)
-        $repoRoot = Get-Location
-        $rel = Resolve-Path -LiteralPath $FilePath -ErrorAction SilentlyContinue
-        if ($rel) {
-            $relStr = (Resolve-Path -LiteralPath $FilePath).ProviderPath
-            try {
-                $repoTop = (git rev-parse --show-toplevel 2>$null).Trim()
-            } catch {
-                $repoTop = $null
-            }
-            if ($repoTop) {
-                $relPath = $full.Substring($repoTop.Length).TrimStart('\','/')
-            } else {
-                # fallback: use filename only
-                $relPath = [System.IO.Path]::GetFileName($FilePath)
-            }
+        try {
+            $repoTop = (git rev-parse --show-toplevel 2>$null).Trim()
+        } catch {
+            $repoTop = $null
+        }
+        if ($repoTop) {
+            $relPath = $full.Substring($repoTop.Length).TrimStart('\','/')
         } else {
             $relPath = [System.IO.Path]::GetFileName($FilePath)
         }
