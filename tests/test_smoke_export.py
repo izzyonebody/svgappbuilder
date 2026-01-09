@@ -1,4 +1,4 @@
-﻿import os
+import os
 from pathlib import Path
 from backend.app.export_api import ExportRequest, export_project
 

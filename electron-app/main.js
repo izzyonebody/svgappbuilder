@@ -1,4 +1,4 @@
-﻿const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow } = require("electron");
 const { spawn } = require("child_process");
 const path = require("path");
 const isDev = require("electron-is-dev");

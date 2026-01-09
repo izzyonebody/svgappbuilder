@@ -1,4 +1,4 @@
-﻿fastapi
+fastapi
 uvicorn[standard]
 requests
 qdrant-client

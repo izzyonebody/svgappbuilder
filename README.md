@@ -1,4 +1,4 @@
-﻿Local SVG App Builder (Starter Repo)
+Local SVG App Builder (Starter Repo)
 ====================================
 
 Overview

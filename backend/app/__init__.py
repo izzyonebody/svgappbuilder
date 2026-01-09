@@ -1,2 +1,2 @@
-﻿# backend.app package init (created by fix-tests.ps1)
+# backend.app package init (created by fix-tests.ps1)
 
